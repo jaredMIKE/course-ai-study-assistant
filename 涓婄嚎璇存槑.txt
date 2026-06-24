@@ -1,0 +1,15 @@
+上线最快流程：
+
+1. 把本项目文件夹上传到 GitHub 仓库。
+2. 打开 Render，新建 Web Service，连接该 GitHub 仓库。
+3. 如果 Render 自动识别 render.yaml，直接创建即可；如果手动填写：
+   - Root Directory: backend
+   - Build Command: python -m pip install --upgrade pip && pip install -r requirements.txt
+   - Start Command: uvicorn main:app --host 0.0.0.0 --port $PORT
+4. 在 Environment / Secrets 中添加：
+   - LLM_API_KEY = 你的 DeepSeek API Key
+   - LLM_BASE_URL = https://api.deepseek.com
+   - LLM_MODEL = deepseek-chat
+5. Deploy 完成后，打开 Render 给出的 https://xxx.onrender.com 地址即可访问。
+
+注意：不要把真实 API Key 写进 GitHub 源码；用平台环境变量更安全，也更方便更换。

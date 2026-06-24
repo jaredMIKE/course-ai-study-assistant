@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# Project local data
+backend/.env
+backend/*.db
+backend/*.sqlite
+backend/*.sqlite3
+backend/course_study_assistant.db
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/

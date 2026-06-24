@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: course-ai-study-assistant
+    env: python
+    rootDir: backend
+    buildCommand: python -m pip install --upgrade pip && pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: LLM_BASE_URL
+        value: https://api.deepseek.com
+      - key: LLM_MODEL
+        value: deepseek-chat
+      - key: LLM_TEMPERATURE
+        value: "0.2"
+      - key: LLM_TIMEOUT
+        value: "35"
+      - key: CORS_ORIGINS
+        value: "*"
+      # LLM_API_KEY 不写进源码。部署时在平台 Environment / Secrets 中手动添加。
