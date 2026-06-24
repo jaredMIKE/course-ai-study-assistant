@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>专业课程资料辅助学习系统</title>
+  <style>
+    :root{
+      --bg:#eef3f8; --panel:#fff; --ink:#111827; --muted:#64748b; --line:#d9e2ec;
+      --blue:#2563eb; --teal:#0f766e; --amber:#d97706; --green:#15803d; --red:#b91c1c;
+      --dark:#0f172a; --radius:12px; --shadow:0 14px 34px rgba(15,23,42,.08);
+    }
+    *{box-sizing:border-box} body{margin:0;min-height:100vh;background:linear-gradient(130deg,rgba(37,99,235,.09),transparent 32%),linear-gradient(250deg,rgba(15,118,110,.08),transparent 30%),var(--bg);color:var(--ink);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif} button,input,textarea,select{font:inherit} button{border:0;cursor:pointer}
+    .app{display:grid;grid-template-columns:270px 1fr;min-height:100vh}.side{background:#0b1220;color:#e5eef9;padding:20px 16px;display:flex;flex-direction:column;gap:16px;position:sticky;top:0;height:100vh;overflow:auto}.brand{display:flex;gap:10px;align-items:center}.mark{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#2563eb,#06b6d4);display:grid;place-items:center;color:white;font-weight:800}.brand strong{display:block;font-size:17px}.brand span{color:#9fb0c7;font-size:12px}.nav{display:grid;gap:8px}.nav button{width:100%;text-align:left;border-radius:10px;padding:10px 12px;background:transparent;color:#cbd5e1}.nav button:hover,.nav button.active{background:rgba(37,99,235,.35);color:white}.metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.metric{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.075);border-radius:12px;padding:11px;min-height:72px}.metric span{display:block;color:#9fb0c7;font-size:12px}.metric strong{display:block;color:white;font-size:22px;margin-top:8px}.tip{color:#b8c7da;font-size:12px;line-height:1.65;border-top:1px solid rgba(255,255,255,.12);padding-top:12px}
+    .main{padding:20px;min-width:0}.top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px}h1{margin:0;font-size:24px}.top p{margin:5px 0 0;color:var(--muted);font-size:13px}.badge{min-height:30px;padding:6px 10px;border-radius:999px;display:inline-flex;align-items:center;background:#e8f4ef;color:#0f7a35;font-size:12px;white-space:nowrap}.badge.warn{background:#fff7ed;color:#b45309}.badge.err{background:#fef2f2;color:var(--red)}
+    .page{display:none}.page.active{display:grid;gap:14px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}.head{padding:13px 15px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px}.head h2{margin:0;font-size:15px}.head span{color:var(--muted);font-size:12px}.body{padding:14px;display:grid;gap:12px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.wide{grid-column:1/-1}
+    textarea,input,select{width:100%;border:1px solid var(--line);border-radius:var(--radius);background:#fff;padding:10px 11px;outline:none}input[type=file]{padding:9px;background:#f8fafc}textarea:focus,input:focus,select:focus{border-color:#8bb5ff;box-shadow:0 0 0 3px rgba(37,99,235,.12)}.actions{display:flex;flex-wrap:wrap;gap:8px}.btn{min-height:34px;border-radius:var(--radius);padding:0 12px;display:inline-flex;align-items:center;justify-content:center;background:var(--blue);color:white;white-space:nowrap}.btn.secondary{background:#e8eef8;color:#21344f}.btn.dark{background:var(--teal)}.btn.danger{background:#fee2e2;color:var(--red)}.small{font-size:12px;color:var(--muted);line-height:1.55}.muted{color:var(--muted)}
+    .box{background:#f8fafc;border:1px solid var(--line);border-radius:var(--radius);padding:12px;line-height:1.7;font-size:13px;color:#26364a;max-height:520px;overflow:auto;white-space:pre-wrap}.box ul,.box ol{margin:0;padding-left:20px;white-space:normal}.docs{display:grid;gap:9px;max-height:520px;overflow:auto}.doc{border:1px solid var(--line);border-radius:var(--radius);padding:11px;background:#fff}.doc strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px}.doc p{margin:7px 0 0;color:var(--muted);font-size:12px;line-height:1.5}.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.tag{border-radius:999px;background:#edf4fb;color:#36516b;padding:4px 8px;font-size:12px}.tag.green{background:#e8f4ef;color:#0f766e}.tag.warn{background:#fff7ed;color:#b45309}.tag.red{background:#fee2e2;color:#b91c1c}
+    .chat-wrap{display:grid;grid-template-rows:auto 1fr auto;min-height:650px}.chat-log{padding:14px;display:flex;flex-direction:column;gap:12px;min-height:420px;max-height:570px;overflow:auto}.msg{max-width:94%;border-radius:12px;padding:12px 13px;line-height:1.7;font-size:14px;white-space:pre-wrap}.msg.user{margin-left:auto;background:#dbeafe;color:#17315d}.msg.bot{background:#f8fafc;border:1px solid var(--line)}.meta{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:8px}.pill{border-radius:999px;background:#eef6ff;color:#1d4ed8;padding:3px 8px;font-size:12px}.pill.warn{background:#fff7ed;color:#b45309}.source{border-left:3px solid var(--amber);background:#fff8e8;color:#533b10;border-radius:0 7px 7px 0;padding:8px 10px;font-size:12px;line-height:1.55;margin-top:8px;white-space:normal}.inputline{border-top:1px solid var(--line);padding:12px;display:grid;gap:9px}.quick{display:flex;gap:8px;overflow:auto}.quick button{min-height:31px;border-radius:999px;padding:0 10px;background:#edf3fb;color:#2b4665;font-size:12px;white-space:nowrap}.askline{display:grid;grid-template-columns:1fr auto;gap:8px}.two-line{display:grid;grid-template-columns:1fr 180px auto;gap:8px}.history{display:grid;gap:8px}.history-item{border-bottom:1px solid var(--line);padding-bottom:8px;font-size:12px;color:var(--muted);white-space:normal}.result{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff;margin-bottom:10px}.result strong{display:block;margin-bottom:6px}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.card{border:1px solid var(--line);border-radius:12px;background:#fff;padding:13px;min-height:130px}.card b{display:block;margin-bottom:8px}.card .back{color:#334155;line-height:1.7}.kpi{background:white;border:1px solid var(--line);border-radius:12px;padding:16px}.kpi strong{display:block;font-size:26px;margin:8px 0}.flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.flow div{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px;line-height:1.6}.flow b{display:block;color:var(--blue);margin-bottom:6px}.footer-note{font-size:12px;color:#64748b;line-height:1.7}
+    @media (max-width:1100px){.app{grid-template-columns:1fr}.side{position:relative;height:auto}.grid,.grid-3,.flow,.cards{grid-template-columns:1fr}.two-line{grid-template-columns:1fr}.top{flex-direction:column}.main{padding:14px}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand"><div class="mark">RAG</div><div><strong>智学 RAG Pro</strong><span>专业课程资料辅助学习系统</span></div></div>
+    <nav class="nav" id="nav">
+      <button class="active" data-page="dashboard">总览</button>
+      <button data-page="library">资料库</button>
+      <button data-page="chat">智能问答</button>
+      <button data-page="summary">摘要笔记</button>
+      <button data-page="quiz">自测训练</button>
+      <button data-page="search">检索溯源</button>
+      <button data-page="plan">复习计划</button>
+      <button data-page="history">学习历史</button>
+      <button data-page="settings">系统设置</button>
+    </nav>
+    <div class="metric-grid">
+      <div class="metric"><span>文档数</span><strong id="docCount">0</strong></div>
+      <div class="metric"><span>知识片段</span><strong id="chunkCount">0</strong></div>
+      <div class="metric"><span>问答记录</span><strong id="qaCount">0</strong></div>
+      <div class="metric"><span>平均置信</span><strong id="avgConf">0%</strong></div>
+    </div>
+    <div class="tip">当前版本聚焦课程资料学习：资料管理、RAG 问答、摘要笔记、自测训练、复习卡片、检索溯源和复习计划。</div>
+  </aside>
+
+  <main class="main">
+    <header class="top">
+      <div><h1>专业课程资料辅助学习系统</h1><p>面向专业课程复习场景，支持资料库管理、智能问答、摘要笔记、自测训练、检索溯源、复习计划、学习历史和系统设置。</p></div>
+      <span class="badge warn" id="apiStatus">API 检测中</span>
+    </header>
+
+    <section class="page active" id="page-dashboard">
+      <div class="grid-3">
+        <div class="kpi"><span class="muted">当前模式</span><strong id="modeKpi">检测中</strong><div class="small">配置 DeepSeek API Key 后自动变为真实大模型。</div></div>
+        <div class="kpi"><span class="muted">支持文件</span><strong>6 类</strong><div class="small">TXT / MD / CSV / PDF / DOCX / PPTX。</div></div>
+        <div class="kpi"><span class="muted">核心能力</span><strong>RAG</strong><div class="small">检索增强生成 + 来源片段追溯。</div></div>
+      </div>
+      <section class="panel"><div class="head"><h2>系统学习流程</h2><span>从资料到复习闭环</span></div><div class="body"><div class="flow"><div><b>1. 导入资料</b>上传课程 PDF / Word / PPT 或粘贴讲义。</div><div><b>2. 构建知识库</b>文本清洗、分块、关键词提取并保存 SQLite。</div><div><b>3. 检索溯源</b>根据问题召回 Top-K 相关片段。</div><div><b>4. 智能生成</b>结合来源片段生成回答、摘要和题目。</div><div><b>5. 自测巩固</b>通过自测题、卡片和计划形成复习闭环。</div></div></div></section>
+      <section class="panel"><div class="head"><h2>知识库关键词</h2><span>自动从资料中提取</span></div><div class="body"><div id="keywordBox" class="box">暂无关键词。</div></div></section>
+    </section>
+
+    <section class="page" id="page-library">
+      <div class="grid">
+        <section class="panel"><div class="head"><h2>上传课程资料</h2><span>推荐上传文字版课件</span></div><div class="body"><input id="fileInput" type="file" multiple accept=".txt,.md,.csv,.pdf,.docx,.pptx" /><div class="actions"><button class="btn dark" id="uploadBtn">上传并解析文件</button></div><div class="small">扫描版 PDF 或纯图片课件无法直接提取文字，需要 OCR；普通文字版 PDF、Word、PPT 可以解析。</div></div></section>
+        <section class="panel"><div class="head"><h2>粘贴资料入库</h2><span>适合录音转写/网页内容</span></div><div class="body"><input id="docTitle" placeholder="资料标题" value="课程资料" /><textarea id="docText" rows="8" placeholder="粘贴课程讲义、实验指导书、复习资料..."></textarea><div class="actions"><button class="btn" id="addDocBtn">粘贴内容入库</button><button class="btn danger" id="resetBtn">重置示例资料</button></div></div></section>
+      </div>
+      <section class="panel"><div class="head"><h2>资料列表</h2><span>可删除单个文档</span></div><div class="body"><div class="docs" id="docList"></div></div></section>
+    </section>
+
+    <section class="page" id="page-chat">
+      <section class="panel chat-wrap"><div class="head"><h2>RAG 智能问答</h2><span id="llmMode">检测中</span></div><div class="chat-log" id="chatLog"></div><div class="inputline"><div class="quick"><button data-q="RAG 的核心流程是什么？">解释 RAG</button><button data-q="这份资料的核心知识点有哪些？">核心知识点</button><button data-q="这个系统的关键算法有哪些？">关键算法</button><button data-q="请按考试复习角度总结重点和易错点。">考试复习</button></div><div class="two-line"><input id="question" placeholder="输入问题，后端会检索知识库并返回来源" /><select id="answerMode"><option value="student">普通复习</option><option value="simple">通俗解释</option><option value="exam">考试重点</option><option value="strict">严格依据资料</option></select><button class="btn dark" id="askBtn">提问</button></div></div></section>
+    </section>
+
+    <section class="page" id="page-summary">
+      <section class="panel"><div class="head"><h2>摘要笔记</h2><span>根据知识库自动生成</span></div><div class="body"><div class="actions"><button class="btn" id="summaryBtn">生成课程摘要</button><button class="btn secondary" id="keywordBtn">刷新关键词</button></div><div class="box" id="summaryBox">点击按钮生成摘要。配置 API Key 后会优先调用真实大模型。</div></div></section>
+    </section>
+
+    <section class="page" id="page-quiz">
+      <div class="grid">
+        <section class="panel"><div class="head"><h2>自测题生成</h2><span>判断题 / 简答题 / 应用题</span></div><div class="body"><button class="btn" id="quizBtn">生成自测题</button><div class="box" id="quizBox">点击生成自测题。</div></div></section>
+        <section class="panel"><div class="head"><h2>复习卡片</h2><span>正面问题，背面答案</span></div><div class="body"><button class="btn secondary" id="flashcardBtn">生成复习卡片</button><div id="cardBox" class="cards"></div></div></section>
+      </div>
+    </section>
+
+    <section class="page" id="page-search">
+      <section class="panel"><div class="head"><h2>检索溯源</h2><span>只检索，不生成答案</span></div><div class="body"><div class="askline"><input id="searchInput" placeholder="输入关键词或问题，例如：文档分块、余弦相似度、RAG流程" /><button class="btn dark" id="searchBtn">检索来源</button></div><div id="searchBox" class="box">检索结果会显示文档名、片段编号、相似度和原文。</div></div></section>
+    </section>
+
+    <section class="page" id="page-plan">
+      <section class="panel"><div class="head"><h2>复习计划</h2><span>基于当前知识库生成</span></div><div class="body"><button class="btn" id="planBtn">生成三阶段复习计划</button><div class="box" id="planBox">点击生成复习计划。</div></div></section>
+    </section>
+
+    <section class="page" id="page-history">
+      <section class="panel"><div class="head"><h2>学习历史</h2><span>SQLite 自动保存问答记录</span></div><div class="body"><div class="box history" id="historyBox">暂无历史。</div></div></section>
+    </section>
+
+    <section class="page" id="page-settings">
+      <section class="panel"><div class="head"><h2>后端 API 设置</h2><span>本地默认使用当前页面地址</span></div><div class="body"><div class="askline"><input id="apiBase" placeholder="后端地址，例如 http://127.0.0.1:8000" /><button class="btn dark" id="saveApiBtn">连接后端</button></div><div class="box" id="healthInfo">正在检测后端状态。</div></div></section>
+    </section>
+  </main>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const state = { apiBase: localStorage.getItem("course_api_base") || window.location.origin };
+$("apiBase").value = state.apiBase;
+
+function escapeHtml(value){return String(value ?? "").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[ch]));}
+async function api(path, options={}){
+  const headers = options.body instanceof FormData ? (options.headers || {}) : {"Content-Type":"application/json", ...(options.headers || {})};
+  const response = await fetch(`${state.apiBase}${path}`, {headers, ...options});
+  if(!response.ok){let msg = await response.text(); try{msg = JSON.parse(msg).detail || msg;}catch(_){} throw new Error(msg);}
+  return response.json();
+}
+function setStatus(text, cls){$("apiStatus").textContent=text; $("apiStatus").className=`badge ${cls||""}`;}
+function addMsg(type, html){const div=document.createElement("div"); div.className=`msg ${type}`; div.innerHTML=html; $("chatLog").appendChild(div); $("chatLog").scrollTop=$("chatLog").scrollHeight;}
+function renderKeywords(data){
+  const tags=(data.keywords||[]).map((k,i)=>`<span class="tag ${i<5?'green':''}">${escapeHtml(k)}</span>`).join("");
+  const docs=(data.documents||[]).map(doc=>`<div class="result"><strong>${escapeHtml(doc.title)}</strong><div class="tags">${(doc.keywords||[]).slice(0,8).map(k=>`<span class="tag">${escapeHtml(k)}</span>`).join("")}</div></div>`).join("");
+  $("keywordBox").innerHTML = tags ? `<div class="tags">${tags}</div>${docs}` : "暂无关键词。";
+}
+async function refresh(){
+  try{
+    const [health, stats, docs, history, keywordData] = await Promise.all([api("/api/health"), api("/api/stats"), api("/api/documents"), api("/api/history"), api("/api/keywords")]);
+    setStatus(`API 已连接：${health.llm_enabled ? "真实大模型" : "模板模式"}`, health.llm_enabled ? "" : "warn");
+    $("llmMode").textContent = health.llm_enabled ? `LLM：${health.model}` : "未配置 API Key，使用模板生成";
+    $("modeKpi").textContent = health.llm_enabled ? "真实大模型" : "模板模式";
+    $("healthInfo").textContent = `状态：${health.status}\n模型：${health.model}\nBase URL：${health.base_url}\n数据库：${health.db_path}\n支持文件：${health.supported_files.join("、")}`;
+    $("docCount").textContent = stats.documents; $("chunkCount").textContent = stats.chunks; $("qaCount").textContent = stats.questions; $("avgConf").textContent = `${Math.round(stats.average_confidence*100)}%`;
+    $("docList").innerHTML = docs.items.length ? docs.items.map(doc=>`
+      <article class="doc"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><strong>${escapeHtml(doc.title)}</strong><button class="btn danger doc-del" data-id="${doc.id}">删除</button></div>
+      <p>${doc.source_type === "upload" ? "上传文件" : doc.source_type === "sample" ? "示例资料" : "粘贴资料"}；${doc.text_length} 字；${doc.chunk_count} 个片段；${escapeHtml(doc.created_at)}</p>
+      <div class="tags">${String(doc.keywords||"").split(",").filter(Boolean).slice(0,8).map(k=>`<span class="tag">${escapeHtml(k)}</span>`).join("")}</div></article>`).join("") : "<div class='box'>暂无资料。</div>";
+    $("historyBox").innerHTML = history.items.length ? history.items.map(item=>`
+      <div class="history-item"><strong>${escapeHtml(item.question)}</strong><br>置信度 ${(item.confidence*100).toFixed(1)}%，引用 ${item.source_count} 条，${item.used_llm ? "真实大模型" : "模板"}，${escapeHtml(item.created_at)}<br>${escapeHtml(String(item.answer||"").slice(0,180))}${String(item.answer||"").length>180?"...":""}</div>`).join("") : "暂无历史。";
+    renderKeywords(keywordData);
+  }catch(error){setStatus("API 连接失败","err"); $("llmMode").textContent="请检查后端地址"; $("healthInfo").textContent=error.message;}
+}
+async function ask(question){
+  const q = question || $("question").value.trim(); if(!q) return;
+  addMsg("user", escapeHtml(q)); $("question").value="";
+  try{
+    const result = await api("/api/chat", {method:"POST", body:JSON.stringify({question:q, top_k:4, threshold:0.02, mode:$("answerMode").value, use_llm:true})});
+    addMsg("bot", `<div class="meta"><span class="pill">置信度 ${result.confidence}%</span><span class="pill">引用 ${result.sources.length} 条</span><span class="pill ${result.used_llm?"":"warn"}">${result.used_llm?"真实大模型":"模板生成"}</span></div>${escapeHtml(result.answer)}${result.llm_error&&!result.used_llm?`<div class="source">提示：${escapeHtml(result.llm_error)}</div>`:""}${result.sources.map(s=>`<div class="source">来源：${escapeHtml(s.document_title)} / 片段 ${s.chunk_index} / 相似度 ${(s.score*100).toFixed(1)}%<br>${escapeHtml(s.text.slice(0,240))}${s.text.length>240?"...":""}</div>`).join("")}`);
+    refresh();
+  }catch(error){addMsg("bot", `后端请求失败：${escapeHtml(error.message)}`);}
+}
+function formatGenerated(data, fallbackItems){
+  if(data.content) return escapeHtml(data.content);
+  if(fallbackItems === "quiz") return `<ol>${(data.items||[]).map(item=>`<li><strong>${escapeHtml(item.type)}</strong>：${escapeHtml(item.question)}<br><span>${escapeHtml(item.answer || item.basis)}</span></li>`).join("")}</ol>`;
+  if(fallbackItems === "summary") return `<ul>${(data.points||[]).map(p=>`<li>${escapeHtml(p)}</li>`).join("")}</ul><div class="tags">${(data.keywords||[]).map(k=>`<span class="tag">${escapeHtml(k)}</span>`).join("")}</div>`;
+  return escapeHtml(JSON.stringify(data, null, 2));
+}
+
+$("nav").addEventListener("click", e=>{const btn=e.target.closest("button[data-page]"); if(!btn) return; document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active")); btn.classList.add("active"); document.querySelectorAll(".page").forEach(p=>p.classList.remove("active")); $(`page-${btn.dataset.page}`).classList.add("active");});
+$("saveApiBtn").addEventListener("click",()=>{state.apiBase=$("apiBase").value.trim().replace(/\/$/,""); localStorage.setItem("course_api_base",state.apiBase); refresh();});
+$("addDocBtn").addEventListener("click",async()=>{try{await api("/api/documents",{method:"POST",body:JSON.stringify({title:$("docTitle").value||"课程资料",text:$("docText").value})}); $("docText").value=""; await refresh();}catch(e){alert(e.message);}});
+$("uploadBtn").addEventListener("click",async()=>{const files=$("fileInput").files; if(!files.length){alert("请选择文件");return;} const fd=new FormData(); Array.from(files).forEach(f=>fd.append("files",f)); try{const result=await api("/api/upload",{method:"POST",body:fd}); alert(result.message); $("fileInput").value=""; await refresh();}catch(e){alert(e.message);}});
+$("resetBtn").addEventListener("click",async()=>{if(!confirm("确定重置知识库吗？"))return; await api("/api/documents",{method:"DELETE"}); refresh();});
+$("docList").addEventListener("click",async e=>{const btn=e.target.closest(".doc-del"); if(!btn)return; if(!confirm("确定删除这个文档吗？"))return; try{await api(`/api/documents/${btn.dataset.id}`,{method:"DELETE"}); refresh();}catch(err){alert(err.message);}});
+$("askBtn").addEventListener("click",()=>ask()); $("question").addEventListener("keydown",e=>{if(e.key==="Enter") ask();}); document.querySelectorAll(".quick button").forEach(btn=>btn.addEventListener("click",()=>ask(btn.dataset.q)));
+$("summaryBtn").addEventListener("click",async()=>{try{const data=await api("/api/summary"); $("summaryBox").innerHTML=formatGenerated(data,"summary");}catch(e){$("summaryBox").textContent=e.message;}});
+$("keywordBtn").addEventListener("click",refresh);
+$("quizBtn").addEventListener("click",async()=>{try{const data=await api("/api/quiz"); $("quizBox").innerHTML=formatGenerated(data,"quiz");}catch(e){$("quizBox").textContent=e.message;}});
+$("flashcardBtn").addEventListener("click",async()=>{try{const data=await api("/api/flashcards"); if(data.content){$("cardBox").innerHTML=`<div class="box wide">${escapeHtml(data.content)}</div>`;}else{$("cardBox").innerHTML=(data.items||[]).map(card=>`<div class="card"><b>${escapeHtml(card.front)}</b><div class="back">${escapeHtml(card.back)}</div><div class="small">来源：${escapeHtml(card.source)}</div></div>`).join("");}}catch(e){$("cardBox").innerHTML=`<div class="box">${escapeHtml(e.message)}</div>`;}});
+$("searchBtn").addEventListener("click",async()=>{const q=$("searchInput").value.trim(); if(!q)return; try{const data=await api(`/api/search?q=${encodeURIComponent(q)}&top_k=10&threshold=0`); $("searchBox").innerHTML=data.items.length?data.items.map(s=>`<div class="result"><strong>${escapeHtml(s.document_title)} / 片段 ${s.chunk_index} / 相似度 ${(s.score*100).toFixed(1)}%</strong><div class="tags">${(s.keywords||[]).slice(0,8).map(k=>`<span class="tag">${escapeHtml(k)}</span>`).join("")}</div><p>${escapeHtml(s.text)}</p></div>`).join(""):"未检索到相关来源。";}catch(e){$("searchBox").textContent=e.message;}});
+$("planBtn").addEventListener("click",async()=>{try{const data=await api("/api/review-plan"); if(data.content){$("planBox").textContent=data.content;}else{$("planBox").innerHTML=`<div class="tags">${(data.keywords||[]).map(k=>`<span class="tag green">${escapeHtml(k)}</span>`).join("")}</div><ol>${(data.stages||[]).map(s=>`<li><strong>${escapeHtml(s.name)}</strong><br>${escapeHtml(s.task)}</li>`).join("")}</ol><p><strong>建议提问：</strong></p><ul>${(data.suggested_questions||[]).map(q=>`<li>${escapeHtml(q)}</li>`).join("")}</ul>`;}}catch(e){$("planBox").textContent=e.message;}});
+
+addMsg("bot", "欢迎使用增强版。先上传课程 PDF/Word/PPT，或直接粘贴课程资料，然后开始基于资料提问。配置 DeepSeek Key 后会自动使用真实大模型。");
+refresh();
+</script>
+</body>
+</html>
